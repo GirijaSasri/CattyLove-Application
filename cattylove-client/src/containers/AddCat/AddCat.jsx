@@ -1,76 +1,126 @@
 import { PageHeader } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import ThemeForm from '../../components/ThemeForm/ThemeForm';
+import axios from '../../utility/axios'
+
+const fields = [
+    {
+        label: 'Picture',
+        name: 'picture',
+        type: 'image',
+        rules: [
+            { required: true, message: 'Please select an image' }
+        ]
+    },
+    {
+        label: 'Name',
+        name: 'name',
+        rules: [
+            { required: true, message: 'Please enter the cat\'s name' },
+            { min: 2, message: 'Please enter a valid name' },
+            { max: 25, message: 'Please enter a valid name' },
+        ]
+    },
+    {
+        label: 'Age',
+        name: 'age',
+        type: 'number',
+        rules: [
+            { required: true, message: 'Please enter cat\'s age' },
+            { type: 'number', message: 'Please enter a valid age' }
+        ]
+    },
+    {
+        label: 'Gender',
+        name: 'gender',
+        type: 'radio',
+        items: [
+            { name: 'Unknown', value: 'Unknown' },
+            { name: 'Male', value: 'Male' },
+            { name: 'Female', value: 'Female' },
+        ],
+        rules: [
+            { required: true, message: 'Please select a gender' },
+        ]
+    },
+    {
+        label: 'Description',
+        name: 'description',
+        type: 'textarea',
+        rules: [
+            { required: true, message: 'Please write a description' },
+            { min: 10, message: 'Please write a detailed description' }
+        ]
+    },
+    {
+        label: 'Features',
+        name: 'features',
+        type: 'features',
+        initialValue: [
+            { key: 'Breed', value: '' },
+            { key: 'Color', value: '' },
+            { key: 'Eye Color', value: '' }
+        ]
+    },
+    {
+        label: 'Contact Number',
+        name: 'contact',
+        type: 'number',
+        rules: [
+            { required: true, message: 'Please enter owner\'s contact number' },
+            { type: 'number', message: 'Please enter a valid contact number' },
+            { pattern: /^[\d]{9,10}$/, message: 'Please enter a valid contact numbers' }
+        ]
+    },
+    {
+        label: 'Location',
+        name: 'location',
+        type: 'map'
+    }
+]
 
 const AddCat = () => {
     const navigate = useNavigate()
+    const [success, setSuccess] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const onBackHandler = () => {
         navigate('/admin', { replace: true })
     }
 
     const submitHandler = values => {
-        console.log(values)
+        setSuccess(false)
+        setLoading(true)
+        axios.post('cats', values)
+            .then(res => {
+                setSuccess(true)
+                toast.success('Saved successfully!', { position: 'bottom-center', theme: 'dark' });
+            })
+            .catch(err => {
+                toast.error(err.response?.data, { position: 'bottom-center', theme: 'dark' });
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }
 
     const submitFailHandler = error => {
         console.log(error)
     }
 
-    const fields = [
-        {
-            label: 'Name',
-            name: 'name',
-            rules: [
-                { required: true, message: 'Please enter the cat\'s name' },
-                { min: 2, message: 'Please enter a valid name' },
-                { max: 25, message: 'Please enter a valid name' },
-            ]
-        },
-        {
-            label: 'Age',
-            name: 'age',
-            type: 'number',
-            rules: [
-                { required: true, message: 'Please enter cat\'s age' },
-                { type: 'number', message: 'Please enter a valid age' }
-            ]
-        },
-        {
-            label: 'Gender',
-            name: 'gender',
-            type: 'radio',
-            items: [
-                { name: 'Unknown', value: 'Unknown' },
-                { name: 'Male', value: 'Male' },
-                { name: 'Female', value: 'Female' },
-            ],
-            rules: [
-                { required: true, message: 'Please select a gender' },
-            ]
-        },
-        {
-            label: 'Description',
-            name: 'description',
-            type: 'textarea',
-            rules: [
-                { required: true, message: 'Please write a description' },
-                { min: 10, message: 'Please write a detailed description' }
-            ]
-        }
-    ]
-
     return (
         <div>
             <PageHeader
-                className="site-page-header"
                 onBack={onBackHandler}
-                title="Add A Cat" />
+                title='Add A Cat' />
             <ThemeForm 
                 fields={fields} 
                 onFinish={submitHandler} 
-                onFinishFailed={submitFailHandler} />
+                onFinishFailed={submitFailHandler}
+                success={success}
+                loading={loading} />
         </div>
     );
 };

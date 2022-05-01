@@ -8,6 +8,9 @@ const Admin = () => {
             <Link to={'/admin/add'}>
                 Add a Cat
             </Link>
+            <Link to={'/admin/edit/626edad7d82ed0164309b734'}>
+                Edit Cat
+            </Link>
         </div>
     );
 };
