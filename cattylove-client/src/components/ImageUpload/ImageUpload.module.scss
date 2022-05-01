@@ -1,0 +1,40 @@
+.ImageUpload {
+    width: 360px;
+    max-width: 90%;
+    margin: 0 auto;
+    position: relative;
+
+    .Label {
+        display: flex;
+        width: 360px;
+        height: 360px;
+        background-size: contain;
+        border: 2px #979797 dashed;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .Input {
+        display: none !important;
+    }
+
+    .Container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 360px;
+        height: 360px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+
+        img {
+            display: block;
+            max-width: 360px;
+            max-height: 360px;
+            object-fit: contain;
+        }
+    }
+}

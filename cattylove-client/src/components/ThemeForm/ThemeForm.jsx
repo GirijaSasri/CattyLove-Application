@@ -1,13 +1,25 @@
 import { Button, Form, Input, InputNumber, Radio } from 'antd';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import FeatureList from '../FeatureList/FeatureList';
+import ImageUpload from '../ImageUpload/ImageUpload';
+import MapWrapper from '../MapWrapper/MapWrapper';
 
-const ThemeForm = ({ onFinish, onFinishFailed, fields }) => {
+const ThemeForm = ({ onFinish, onFinishFailed, fields, success, loading }) => {
 
     const formRef = useRef()
+    const [form] = Form.useForm()
 
     const resetHandler = () => {
         formRef.current.resetFields();
     }
+
+    const markerClickedHandler = position => {
+        form.setFieldsValue({ latitude: position.lat, longitude: position.lng })
+    }
+
+    useEffect(() => {
+        if(success) formRef.current.resetFields();
+    }, [success])
 
     const inputs = fields.map(field => {
         let inputType = <Input />
@@ -21,22 +33,47 @@ const ThemeForm = ({ onFinish, onFinishFailed, fields }) => {
             )
         }
         else if(field.type === 'number') {
-            inputType = <InputNumber style={{ width: '100%' }} />
+            inputType = <InputNumber style={{ width: '100%' }} addonBefore={field.name === 'contact' && '+94'} />
         }
         else if(field.type === 'textarea') {
             inputType = <Input.TextArea rows={5} />
+        }
+        else if(field.type === 'features') {
+            inputType = <FeatureList />
+        }
+        else if(field.type === 'image') {
+            inputType = <ImageUpload form={form} initialValue={field.initialValue} />
+        }
+        else if(field.type === 'map') {
+            inputType = (
+                <>
+                    <MapWrapper onMarkerClick={markerClickedHandler} markerPosition={field.initialValue} />
+                    <Form.Item key={'latitude'} name={'latitude'} style={{ display: 'none' }}>
+                        <Input type={'hidden'}/>
+                    </Form.Item>
+                    <Form.Item key={'longitude'} name={'longitude'} style={{ display: 'none' }}>
+                        <Input type={'hidden'}/>
+                    </Form.Item>
+                </>
+            )
         }
 
         return (
             <Form.Item
                 key={field.name}
                 label={field.label}
-                name={field.name}
+                name={field.type !== 'map' && field.name}
                 rules={field.rules}>
                 {inputType}
             </Form.Item>
         )
     })
+
+    const initValues = fields.reduce((o, field) => {
+        if(field.type === 'map' && field.initialValue)
+            return {...o, longitude: field.initialValue.lng, latitude: field.initialValue.lat}
+        return {...o, [field.name]: field.initialValue}
+    }, {})
 
     return (
         <Form 
@@ -44,12 +81,14 @@ const ThemeForm = ({ onFinish, onFinishFailed, fields }) => {
             layout={'vertical'}
             requiredMark={'optional'}
             ref={formRef}
+            form={form}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
+            initialValues={initValues}
             autoComplete="off">
             {inputs}
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" disabled={loading}>
                     Save
                 </Button>
                 <Button htmlType="button" onClick={resetHandler} style= {{ marginLeft: '20px' }}>

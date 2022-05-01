@@ -1,5 +1,6 @@
 import { Layout } from 'antd';
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
 import Navigation from '../../components/Navigation/Navigation';
 
 const { Content, Footer } = Layout;
@@ -16,6 +17,7 @@ const PageLayout = props => {
                     CattyLove © 2022. All rights reserved.
                 </Footer>
             </Layout>
+            <ToastContainer />
         </div>
     );
 };
