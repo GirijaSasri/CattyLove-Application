@@ -9,11 +9,11 @@ const PageLayout = props => {
         <div>
             <Layout style={{ minHeight: '100vh' }}>
                 <Navigation />
-                <Content className="site-layout" style={{ margin: '0 auto', marginTop: 64, width: '600px', maxWidth: '90%' }}>
+                <Content className="site-layout" style={{ margin: '0 auto', marginTop: 64, width: '60%', maxWidth: '90%' }}>
                     {props.children}
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
-                    CattyLove © 2022. All right reserved.
+                    CattyLove © 2022. All rights reserved.
                 </Footer>
             </Layout>
         </div>
