@@ -12,13 +12,15 @@ const Navigation = () => {
             </Link>
             <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['home']} style={{ justifyContent: 'flex-end' }}>
                 <Menu.Item key={'wishlist'}>
-                    My Wishlist
+                     My Wishlist                  
                 </Menu.Item>
                 <Menu.Item key={'login'}>
                     Login
                 </Menu.Item>
                 <Menu.Item key={'comments'}>
-                    Comments
+                <Link to={'/comment'}>
+                    Comment
+                </Link>
                 </Menu.Item>
             </Menu>
         </Header>

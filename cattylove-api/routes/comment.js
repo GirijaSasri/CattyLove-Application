@@ -1,6 +1,6 @@
 const express = require('express')
 const Cat = require('../models/cat')
-const Comment = require('../models/comment')
+const comment = require('../models/comment')
 const User = require('../models/user')
 
 const router = express.Router()

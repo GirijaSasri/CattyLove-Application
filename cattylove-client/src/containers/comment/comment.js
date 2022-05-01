@@ -1,15 +1,14 @@
-import { PageHeader,Menu, Dropdown, Space } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { PageHeader} from 'antd';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ThemeForm from '../../components/ThemeForm/ThemeForm';
 
-const comments = () => {
+const Comment = () => {
     
     const navigate = useNavigate()
 
     const onBackHandler = () => {
-        navigate('/index', { replace: true })
+        navigate('/', { replace: true })
     }
 
     const submitHandler = values => {
@@ -38,12 +37,10 @@ const comments = () => {
             name: 'comment',
             type: 'textarea',
             rules: [
-                { required: true, message: 'Please write your comment' }
+                { required: true, message: 'Please write your comment.' }
             ]
         }
-    ]
-      
-     
+    ]  
 
     return (
         <div>
@@ -61,4 +58,4 @@ const comments = () => {
     
 };
 
-export default comments;
+export default Comment;
