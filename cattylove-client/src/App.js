@@ -11,7 +11,9 @@ function App() {
     <BrowserRouter>
       <PageLayout>
         <Routes>
-            <Route path='/' element={<h1>Hello world</h1>} />
+            <Route path='/' element={
+              <h1>Hello world</h1>
+            } />
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin/add' element={<AddCat />} />
         </Routes>
