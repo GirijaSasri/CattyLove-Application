@@ -17,6 +17,12 @@ const Navigation = () => {
                 <Menu.Item key={'login'}>
                     Login
                 </Menu.Item>
+                <Menu.Item key={'comment'}>
+                    <link to={'/comment'}>
+                    Comment
+                    </link>
+                    
+                </Menu.Item>
             </Menu>
         </Header>
     );

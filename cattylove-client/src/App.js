@@ -4,6 +4,7 @@ import PageLayout from './containers/PageLayout/PageLayout';
 import AddCat from './containers/AddCat/AddCat';
 import Admin from './containers/Admin/Admin';
 import EditCat from './containers/EditCat/EditCat';
+import Comment from './containers/comment/comment';
 
 import './App.css'
 
@@ -16,6 +17,7 @@ function App() {
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin/add' element={<AddCat />} />
             <Route path='/admin/edit/:id' element={<EditCat />} />
+            <Route path='/comment' element={<Comment />} />
         </Routes>
       </PageLayout>
     </BrowserRouter>
