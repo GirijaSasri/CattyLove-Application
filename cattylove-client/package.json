@@ -9,10 +9,7 @@
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.20.2",
-<<<<<<< HEAD
-=======
     "axios": "^0.27.2",
->>>>>>> 2151765ec724eb60c216864880b3fae023f534b5
     "imagekitio-react": "^1.1.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
