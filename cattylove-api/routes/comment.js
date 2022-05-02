@@ -55,4 +55,28 @@ router.post("/", async (req, res) => {
 
 });
 
+
+router.get("/:catID", async (req, res) => {
+    let catID = req.params.catID;
+  
+    //Validate the data before we create a link
+    // const { error } = idValidation({ _id: itemId });
+    // if (error) return res.status(400).send({ message: error.details[0].message });
+  
+    try {
+      let comment = await Comment.findById(catID);
+      if (!comment) {
+        return res.status(404).send("Given ID does not exist");
+      }
+  
+      return res.status(200).send(comment);
+    }
+    catch (e) {
+      return res.status(500).send("Database/Server Error");
+    }
+  
+  });
+  
+  
+
 module.exports = router
