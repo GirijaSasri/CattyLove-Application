@@ -8,20 +8,13 @@ class Cat extends Component {
     
     state = {
         userId:10,
-        catId: this.props.catId,
-        catName: this.props.catName,
-        gender: this.props.gender,
-        description: this.props.description,
-        wishlistCatIds: [1,2,5],
-        likes: this.props.likes,
-        imgLink: this.props.imageLink
-
+        wishlistCatIds: [1,2,5]
     }
 
     getGender(){
         var color = ''
 
-        switch (this.state.gender) {
+        switch (this.props.gender) {
             case 'Male':
                 color = '#0076ba'
                 break;
@@ -37,35 +30,35 @@ class Cat extends Component {
     }
 
     getLiked(){
-        return this.state.likes.includes(this.state.userId) ? <LikeFilled style={{color:'#ffffff'}} /> : <LikeOutlined style={{color:'#ffffff'}} />
+        return this.props.likes.includes(this.state.userId) ? <LikeFilled style={{color:'#ffffff'}} /> : <LikeOutlined style={{color:'#ffffff'}} />
     }
 
     getWishListed(){
-        return this.state.wishlistCatIds.includes(this.state.catId) ? <HeartFilled style={{color:'#c90025', fontSize:25}} /> : <HeartOutlined style={{color:'#c90025', fontSize:25}} />
+        return this.state.wishlistCatIds.includes(this.props.catId) ? <HeartFilled style={{color:'#c90025', fontSize:25}} /> : <HeartOutlined style={{color:'#c90025', fontSize:25}} />
     }
 
     likeCat = () => {
-        if (this.state.likes.includes(this.state.userId)){
-            let tempArray = this.state.likes
-            tempArray.splice(this.state.likes.indexOf(this.state.userId),1)
+        if (this.props.likes.includes(this.state.userId)){
+            let tempArray = this.props.likes
+            tempArray.splice(this.props.likes.indexOf(this.state.userId),1)
             this.setState({likes: tempArray})
         }
         else{
-            let tempArray = this.state.likes
+            let tempArray = this.props.likes
             tempArray.push(this.state.userId)
             this.setState({likes: tempArray})
         }
     }
 
     addWishlist = () => {
-        if (this.state.wishlistCatIds.includes(this.state.catId)){
+        if (this.state.wishlistCatIds.includes(this.props.catId)){
             let tempArray = this.state.wishlistCatIds
-            tempArray.splice(this.state.wishlistCatIds.indexOf(this.state.catId),1)
+            tempArray.splice(this.state.wishlistCatIds.indexOf(this.props.catId),1)
             this.setState({wishlistCatIds: tempArray})
         }
         else{
             let tempArray = this.state.wishlistCatIds
-            tempArray.push(this.state.catId)
+            tempArray.push(this.props.catId)
             this.setState({wishlistCatIds: tempArray})
         }
     }
@@ -75,14 +68,14 @@ class Cat extends Component {
         return (
             <React.Fragment>
                 <div style={{width:'45%', margin:10}}>
-                    <Badge.Ribbon text={this.state.gender} color={this.getGender()}>
+                    <Badge.Ribbon text={this.props.gender} color={this.getGender()} style={{fontSize:20, height:'30px', paddingTop:3, paddingBottom:3, paddingRight:20}}>
                         <Card style={{height:'fit-content', borderRadius:10}} hoverable>
                             <Row align='top' gutter={[16,8]}>
                                 <Col span={8}>
                                     <Avatar src={
                                         <IKImage
                                             urlEndpoint={CONSTANTS.imagekitEndpoint} 
-                                            src={this.state.imgLink}
+                                            src={this.props.imageLink}
                                             transformation={[{ height:100, width:100 }]}
                                             lqip={{ active:true }}
                                             loading="lazy"
@@ -94,12 +87,12 @@ class Cat extends Component {
                                     />
                                 </Col>
                                 <Col span={8}>
-                                    <p style={{fontSize:20}}><b>{this.state.catName}</b></p>
+                                    <br/><p style={{fontSize:20}}><b>{this.props.catName}</b></p>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
-                                    <p>{this.state.description}</p>
+                                    <p>{this.props.description}</p>
                                 </Col>
                             </Row>
                             <Row align='middle'>
@@ -110,7 +103,7 @@ class Cat extends Component {
                                         style={{fontSize:16, backgroundColor:this.getGender(), color:'#ffffff', borderRadius:10, paddingBottom:30}}
                                         onClick={this.likeCat}
                                         >
-                                        &nbsp;{this.state.likes.length}
+                                        &nbsp;{this.props.likes.length}
                                     </Button>
                                 </Col>
                                 <Col span={5} style={{alignContent:'center'}}>
