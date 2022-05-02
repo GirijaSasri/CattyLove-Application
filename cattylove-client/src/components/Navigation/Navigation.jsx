@@ -18,9 +18,9 @@ const Navigation = () => {
                     Login
                 </Menu.Item>
                 <Menu.Item key={'comment'}>
-                    <link to={'/comment'}>
+                    <Link to={'/comment'}>
                     Comment
-                    </link>
+                    </Link>
                     
                 </Menu.Item>
             </Menu>
