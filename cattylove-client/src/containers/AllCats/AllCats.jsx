@@ -4,6 +4,7 @@ import { Row } from 'antd'
 
 class AllCats extends Component {
     state = {
+        
         cats: [
             {id:1, catName: "Peaches", likes:[1,2,3,4,5,6,10],gender:"Female",imageLink:"https://i.pinimg.com/originals/e8/f6/f6/e8f6f6c6653c35f506f80218f1b49d46.jpg", description:"Cute fluffy cat with white fur, hence the name Furry. He has brown patches that belnd in perfectly into his snow white fur."},
             {id:2, catName: "Mr.Munchkin", likes:[1,2,3,4,5,6,7,8,9,0],gender:"Male", imageLink:"https://images.unsplash.com/photo-1615497001839-b0a0eac3274c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y3V0ZSUyMGNhdHxlbnwwfHwwfHw%3D&w=1000&q=80", description:"Cute fluffy cat with white fur, hence the name Furry. He has brown patches that belnd in perfectly into his snow white fur.Cute fluffy cat with white fur, hence the name Furry. He has brown patches that belnd in perfectly into his snow white fur."},
