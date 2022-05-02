@@ -1,8 +1,11 @@
+
+
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import React, { useState } from 'react';
 import CONSTANTS from '../../utility/Constants';
 import Map from './Map/Map';
 import Marker from './Marker/Marker'
+
 
 const render = status => {
     if (status === Status.LOADING) return <h3>{status} ..</h3>;
@@ -10,17 +13,20 @@ const render = status => {
     return null;
 };
 
+
 const MapWrapper = ({ onMarkerClick = () => {}, markerPosition = { lat: 6.927079, lng: 79.861244 } }) => {
 
     const [position, setPosition] = useState(markerPosition)
     const [zoom, setZoom] = useState(9)
     const [center, setCenter] = useState(markerPosition)
 
+
     const clickHandler = e => {
         setPosition(e.latLng)
         onMarkerClick(e.latLng.toJSON())
     }
 
+    
     const idleHandler = m => {
         setZoom(m.getZoom());
         setCenter(m.getCenter().toJSON());
