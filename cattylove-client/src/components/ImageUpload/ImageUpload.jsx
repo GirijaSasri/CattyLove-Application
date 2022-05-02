@@ -47,7 +47,7 @@ const ImageUpload = ({ form, initialValue }) => {
                     className={styles.Input}
                     disabled={loading} />
                 <label htmlFor={'imgkit-upload'} className={styles.Label} style={{ backgroundImage: !path && `url(${uploadPlaceholder})` }}>
-                    {loading && <Spin size="large" />}
+                    {loading && <Spin size="large" style={{ zIndex: 1 }} />}
                 </label>
                 <Input className={styles.Input} />
                 {path !== '' && (

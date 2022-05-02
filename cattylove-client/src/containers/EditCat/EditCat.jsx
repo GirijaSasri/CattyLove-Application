@@ -131,11 +131,13 @@ const EditCat = () => {
         }
     ]
 
+    const title = cat ? `Edit ${cat.name}` : 'Edit'
+
     return (
         <div>
             <PageHeader
                 onBack={onBackHandler}
-                title='Edit' />
+                title={title} />
             {cat && <ThemeForm 
                 fields={fields} 
                 onFinish={submitHandler} 
