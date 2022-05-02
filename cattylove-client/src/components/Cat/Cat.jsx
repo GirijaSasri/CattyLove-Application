@@ -8,13 +8,7 @@ class Cat extends Component {
     
     state = {
         userId:10,
-        catId: this.props.catId,
-        catName: this.props.catName,
-        gender: this.props.gender,
-        description: this.props.description,
         wishlistCatIds: [1,2,5],
-        likes: this.props.likes,
-        imgLink: this.props.imageLink
 
     }
 
