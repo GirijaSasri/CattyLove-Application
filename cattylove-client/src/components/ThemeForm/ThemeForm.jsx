@@ -85,9 +85,10 @@ const ThemeForm = ({ onFinish, onFinishFailed, fields, success, loading }) => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             initialValues={initValues}
-            autoComplete="off">
+            autoComplete="off"
+            style={{ maxWidth: 600, margin: 'auto' }}>
             {inputs}
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
                 <Button type="primary" htmlType="submit" disabled={loading}>
                     Save
                 </Button>

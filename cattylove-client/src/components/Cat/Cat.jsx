@@ -75,10 +75,9 @@ class Cat extends Component {
                                     <Avatar src={
                                         <IKImage
                                             urlEndpoint={CONSTANTS.imagekitEndpoint} 
-                                            src={this.props.imageLink}
+                                            path={this.props.imageLink}
                                             transformation={[{ height:100, width:100 }]}
-                                            lqip={{ active:true }}
-                                            loading="lazy"
+                                            lqip={{ active:true, quality: 10 }}
                                             height="100"
                                             width="100"
                                         />
