@@ -2,6 +2,7 @@ import { PageHeader} from 'antd';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ThemeForm from '../../components/ThemeForm/ThemeForm';
+import axios from 'axios';
 
 const Comment = () => {
     
@@ -12,12 +13,33 @@ const Comment = () => {
     }
 
     const submitHandler = values => {
-        console.log(values)
+        console.log("sample :",values)
+        addComment(values.comment,values.anonymous)
+
     }
 
     const submitFailHandler = error => {
         console.log(error)
     }
+
+    const addComment = async (comment,anonymous) => {
+
+        const obj = {
+            comment : comment,
+            anonymous : anonymous
+        }
+    
+        return await axios.post(`http://localhost:5000/api/comment`,obj)
+            .then(res => {
+                console.log(res.data);
+                return true;
+    
+            }).catch(err => {
+                console.log(err);
+                return false;
+            });
+    }
+    
 
     const fields = [        
         {
