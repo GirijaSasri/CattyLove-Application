@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ThemeForm from '../../components/ThemeForm/ThemeForm';
 import axios from '../../utility/axios'
+import getAdminHeader from '../../utility/getAdminHeader';
 
 const fields = [
     {
@@ -91,19 +92,25 @@ const AddCat = () => {
     }
 
     const submitHandler = values => {
-        setSuccess(false)
-        setLoading(true)
-        axios.post('cats', values)
-            .then(res => {
-                setSuccess(true)
-                toast.success('Successfully added a cat for adoption!', { position: 'bottom-center', theme: 'dark' });
-            })
-            .catch(err => {
-                toast.error(err.response?.data, { position: 'bottom-center', theme: 'dark' });
-            })
-            .finally(() => {
-                setLoading(false)
-            })
+        const headers = getAdminHeader()
+        if(headers) {
+            setSuccess(false)
+            setLoading(true)
+            axios.post('cats', values, { headers })
+                .then(res => {
+                    setSuccess(true)
+                    toast.success('Successfully added a cat for adoption!', { position: 'bottom-center', theme: 'dark' });
+                })
+                .catch(err => {
+                    toast.error(`${err.response?.status}: ${err.response?.data}`, { position: 'bottom-center', theme: 'dark' });
+                })
+                .finally(() => {
+                    setLoading(false)
+                })
+        }
+        else {
+            toast.warning('Your login session has expired. Please login again!', { position: 'bottom-center', theme: 'dark' });
+        }
     }
 
     const submitFailHandler = error => {

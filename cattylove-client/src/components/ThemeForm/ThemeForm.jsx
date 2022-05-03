@@ -4,7 +4,7 @@ import FeatureList from '../FeatureList/FeatureList';
 import ImageUpload from '../ImageUpload/ImageUpload';
 import MapWrapper from '../MapWrapper/MapWrapper';
 
-const ThemeForm = ({ onFinish, onFinishFailed, fields, success, loading }) => {
+const ThemeForm = ({ onFinish, onFinishFailed, fields, success, loading, submitText = 'Save', enableReset = true }) => {
 
     const formRef = useRef()
     const [form] = Form.useForm()
@@ -57,6 +57,9 @@ const ThemeForm = ({ onFinish, onFinishFailed, fields, success, loading }) => {
                 </>
             )
         }
+        else if(field.type === 'password') {
+            inputType = <Input.Password />
+        }
 
         return (
             <Form.Item
@@ -90,11 +93,11 @@ const ThemeForm = ({ onFinish, onFinishFailed, fields, success, loading }) => {
             {inputs}
             <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
                 <Button type="primary" htmlType="submit" disabled={loading}>
-                    Save
+                    {submitText}
                 </Button>
-                <Button htmlType="button" onClick={resetHandler} style= {{ marginLeft: '20px' }}>
+                {enableReset && <Button htmlType="button" onClick={resetHandler} style= {{ marginLeft: '20px' }}>
                     Reset
-                </Button>
+                </Button>}
             </Form.Item>
         </Form>
     );
