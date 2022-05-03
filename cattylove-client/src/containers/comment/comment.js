@@ -47,8 +47,8 @@ const Comment = () => {
             name: 'anonymous',
             type: 'radio',
             items: [
-                { name: 'Yes', value: 'Yes' },
-                { name: 'No', value: 'No' },
+                { name: 'Yes', value: 'true' },
+                { name: 'No', value: 'false' },
             ],
             rules: [
                 { required: true, message: 'Please select posting type.' },

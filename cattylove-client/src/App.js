@@ -8,6 +8,7 @@ import EditCat from './containers/EditCat/EditCat';
 import Comment from './containers/comment/comment';
 import { Auth0Provider } from '@auth0/auth0-react';
 import Login from './containers/Login/Login';
+import Catdeatil from './containers/CatDetail/catdeatil';
 
 import './App.css'
 
@@ -28,6 +29,7 @@ function App() {
               <Route path='/admin/edit/:id' element={<EditCat />} />
               <Route path='/comment' element={<Comment />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/catdetail' element={<Catdeatil />} />
           </Routes>
         </PageLayout>
       </BrowserRouter>

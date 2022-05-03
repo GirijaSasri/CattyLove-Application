@@ -1,8 +1,8 @@
 import React from 'react'
 import "antd/dist/antd.css";
-import { Form, Button, Input, Space, Row } from 'antd';
+import { Form, Button, Input, Row } from 'antd';
 import { Image } from 'antd';
-import { PoweroffOutlined } from '@ant-design/icons';
+import AllComments from '../comment/AllCcomments';
   
 export default function App() {
   
@@ -77,6 +77,11 @@ export default function App() {
               <Button type="success" htmlType="submit">
                Add To Wishlist
               </Button>
+             </Form.Item>
+             <Form.Item>
+                <AllComments>
+
+                </AllComments>
              </Form.Item>
 
 
