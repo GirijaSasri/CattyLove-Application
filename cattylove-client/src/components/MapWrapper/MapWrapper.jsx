@@ -1,10 +1,7 @@
-
-
-import { Wrapper, Status } from '@googlemaps/react-wrapper';
+import { Status, Wrapper } from '@googlemaps/react-wrapper';
 import React, { useState } from 'react';
-import CONSTANTS from '../../utility/Constants';
 import Map from './Map/Map';
-import Marker from './Marker/Marker'
+import Marker from './Marker/Marker';
 
 
 const render = status => {
@@ -34,7 +31,7 @@ const MapWrapper = ({ onMarkerClick = () => {}, markerPosition = { lat: 6.927079
 
     return (
         <div style={{ width: '100%', height: '400px' }}>
-            <Wrapper apiKey={CONSTANTS.googleApiKey} render={render}>
+            <Wrapper apiKey={process.env.REACT_APP_GOOGLE_API_KEY} render={render}>
                 <Map 
                     center={center} 
                     zoom={zoom} 
