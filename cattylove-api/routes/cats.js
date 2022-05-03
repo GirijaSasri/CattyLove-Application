@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
     console.log("request received " + new Date().toISOString())
     try{
         let cats = await Cat.find()
-        let users = await User.find()
         res.send(cats)
     }
     catch(ex){
