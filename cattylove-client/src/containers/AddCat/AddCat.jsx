@@ -96,7 +96,7 @@ const AddCat = () => {
         axios.post('cats', values)
             .then(res => {
                 setSuccess(true)
-                toast.success('Saved successfully!', { position: 'bottom-center', theme: 'dark' });
+                toast.success('Successfully added a cat for adoption!', { position: 'bottom-center', theme: 'dark' });
             })
             .catch(err => {
                 toast.error(err.response?.data, { position: 'bottom-center', theme: 'dark' });
@@ -114,7 +114,7 @@ const AddCat = () => {
         <div>
             <PageHeader
                 onBack={onBackHandler}
-                title='Add A Cat' />
+                title='Add a new cat for adoption' />
             <ThemeForm 
                 fields={fields} 
                 onFinish={submitHandler} 

@@ -34,7 +34,7 @@ const EditCat = () => {
         axios.put(`cats/${id}`, values)
             .then(res => {
                 setSuccess(true)
-                toast.success('Saved successfully!', { position: 'bottom-center', theme: 'dark' });
+                toast.success('Cat details updated successfully!', { position: 'bottom-center', theme: 'dark' });
                 setCat(res.data)
             })
             .catch(err => {

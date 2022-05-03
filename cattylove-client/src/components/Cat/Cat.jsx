@@ -78,8 +78,7 @@ class Cat extends Component {
                                             urlEndpoint={CONSTANTS.imagekitEndpoint} 
                                             path={this.props.imageLink}
                                             transformation={[{ height:100, width:100 }]}
-                                            lqip={{ active:true }}
-                                            loading="lazy"
+                                            lqip={{ active:true, quality: 10 }}
                                             height="100"
                                             width="100"
                                         />
