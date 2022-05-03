@@ -6,8 +6,9 @@ import Admin from './containers/Admin/Admin';
 import AllCats from './containers/AllCats/AllCats';
 import EditCat from './containers/EditCat/EditCat';
 import Comment from './containers/comment/comment';
-
+import Catdeatil from './containers/CatDetail/catdeatil';
 import './App.css'
+import AllComments from './containers/comment/AllCcomments';
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin/add' element={<AddCat />} />
             <Route path='/admin/edit/:id' element={<EditCat />} />
+            <Route path='/allcomment' element={<AllComments />} />
             <Route path='/comment' element={<Comment />} />
+            <Route path='/catdetail' element={<Catdeatil />} />
         </Routes>
       </PageLayout>
     </BrowserRouter>

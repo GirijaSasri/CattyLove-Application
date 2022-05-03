@@ -46,36 +46,22 @@ router.post("/", async (req, res) => {
     catch (e) {
         console.log(e);
 
-        return res.status(500).send("Database/Server Error");
+        return res.status(500).send('Error: ' + ex.message)
     }
 
+})
 
-
-
-
-});
-
-
-router.get("/:catID", async (req, res) => {
-    let catID = req.params.catID;
-  
-    //Validate the data before we create a link
-    // const { error } = idValidation({ _id: itemId });
-    // if (error) return res.status(400).send({ message: error.details[0].message });
-  
+router.get('/', async (req, res) => {
     try {
-      let comment = await Comment.findById(catID);
-      if (!comment) {
-        return res.status(404).send("Given ID does not exist");
-      }
-  
-      return res.status(200).send(comment);
+        let comment = await Comment.find()
+        if(!comment)
+            return res.status(404).send('No comments available for this cat.')
+        return res.status(200).send(comment)
     }
-    catch (e) {
-      return res.status(500).send("Database/Server Error");
+    catch(ex) {
+        return res.status(500).send('Error: ' + ex.message)
     }
-  
-  });
+})
   
   
 
