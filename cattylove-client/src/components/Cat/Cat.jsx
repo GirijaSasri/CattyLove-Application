@@ -1,7 +1,8 @@
 import { Badge, Card, Avatar, Button, Row, Col } from 'antd'
 import React, { Component } from 'react'
 import {IKImage } from 'imagekitio-react'
-import {LikeFilled, LikeOutlined, HeartOutlined, HeartFilled, ShareAltOutlined, } from '@ant-design/icons'
+import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton, EmailIcon, EmailShareButton } from 'react-share'
+import {LikeFilled, LikeOutlined, HeartOutlined, HeartFilled, } from '@ant-design/icons'
 import CONSTANTS from '../../utility/Constants'
 
 class Cat extends Component {
@@ -75,7 +76,7 @@ class Cat extends Component {
                                     <Avatar src={
                                         <IKImage
                                             urlEndpoint={CONSTANTS.imagekitEndpoint} 
-                                            src={this.props.imageLink}
+                                            path={this.props.imageLink}
                                             transformation={[{ height:100, width:100 }]}
                                             lqip={{ active:true }}
                                             loading="lazy"
@@ -96,32 +97,60 @@ class Cat extends Component {
                                 </Col>
                             </Row>
                             <Row align='middle'>
-                                <Col span={19}>
-                                    <Button
-                                        type='text' 
-                                        icon={this.getLiked()}
-                                        style={{fontSize:16, backgroundColor:this.getGender(), color:'#ffffff', borderRadius:10, paddingBottom:30}}
-                                        onClick={this.likeCat}
-                                        >
-                                        &nbsp;{this.props.likes.length}
-                                    </Button>
-                                </Col>
-                                <Col span={5} style={{alignContent:'center'}}>
-                                    <Row align='middle' style={{height:'fit-content'}}>
+                                <Col span={17}>
+                                    <Row>
                                         <Col>
-                                            <Button 
+                                            <Button
                                                 type='text' 
-                                                icon={this.getWishListed()}
-                                                onClick={this.addWishlist}
+                                                icon={this.getLiked()}
+                                                style={{fontSize:16, backgroundColor:this.getGender(), color:'#ffffff', borderRadius:10, paddingBottom:30}}
+                                                onClick={this.likeCat}
                                                 >
+                                                &nbsp;{this.props.likes.length}
                                             </Button>
                                         </Col>
                                         <Col>
                                             <Button 
                                                 type='text' 
-                                                icon={<ShareAltOutlined style={{color:'#858585', fontSize:25}} />}
+                                                icon={this.getWishListed()}
+                                                onClick={this.addWishlist}
+                                                style={{marginLeft:10}}
                                                 >
                                             </Button>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col span={7}>
+                                    <Row align='bottom' style={{height:'fit-content'}}>
+                                        <Col>
+                                            <FacebookShareButton
+                                                url={"http://"+window.location.host + "/cats/" + this.props.catId}
+                                                quote={this.props.catName}
+                                                description={this.props.description}
+                                                className="Demo__some-network__share-button"
+                                                style={{marginLeft:5}}
+                                            >
+                                                <FacebookIcon size={27} round />
+                                            </FacebookShareButton>
+                                        </Col>
+                                        <Col>
+                                            <TwitterShareButton
+                                                url={"http://"+window.location.host + "/cats/" + this.props.catId}
+                                                title={this.props.description}
+                                                style={{marginLeft:5}}
+                                            >
+                                                <TwitterIcon size={27} round />
+                                            </TwitterShareButton>
+                                        </Col>
+                                        <Col>
+                                            <EmailShareButton
+                                                subject={this.props.catName}
+                                                body={this.props.description}
+                                                url={"http://"+window.location.host + "/cats/" + this.props.catId}
+                                                style={{marginLeft:5}}
+                                            >
+                                                <EmailIcon size={27} round />
+                                            </EmailShareButton>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -131,6 +160,10 @@ class Cat extends Component {
                 </div>
             </React.Fragment>
         )
+    }
+
+    componentDidMount(){
+        console.log("http://"+window.location.host + "/cats/" + this.props.catId)
     }
 }
 
