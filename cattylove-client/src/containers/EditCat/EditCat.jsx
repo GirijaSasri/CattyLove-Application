@@ -137,7 +137,8 @@ const EditCat = () => {
         <div>
             <PageHeader
                 onBack={onBackHandler}
-                title={title} />
+                title={title}
+                subTitle={cat && `#${cat._id}`} />
             {cat && <ThemeForm 
                 fields={fields} 
                 onFinish={submitHandler} 
