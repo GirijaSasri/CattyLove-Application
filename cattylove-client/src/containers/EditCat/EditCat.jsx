@@ -49,6 +49,7 @@ const EditCat = () => {
         }
         else {
             toast.warning('Your login session has expired. Please login again!', { position: 'bottom-center', theme: 'dark' });
+            navigate('/admin/login', { replace: true })
         }
     }
 

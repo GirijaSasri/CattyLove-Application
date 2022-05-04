@@ -4,6 +4,7 @@ import { Header } from 'antd/lib/layout/layout';
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/cattylove-logo.png';
+import adminLogo from '../../assets/images/cattylove-admin-logo.png';
 import CONSTANTS from '../../utility/Constants';
 
 const Navigation = () => {
@@ -41,12 +42,19 @@ const Navigation = () => {
         )
     }
 
+    const homeLink = isAdminPage ? (
+        <Link to={'/admin'} style={{ float: 'left' }}>
+            <img src={adminLogo} width={170} alt={'A cat with a house with name Catty Love'} />
+        </Link>
+    ) : (
+        <Link to={'/'} style={{ float: 'left' }}>
+            <img src={logo} width={170} alt={'A cat with a house with name Catty Love Admin'} />
+        </Link>
+    )
 
     return (
         <Header style={{ position: 'fixed', zIndex: 2, width: '100%' }}>
-            <Link to={isAdminPage ? '/admin' : '/'} style={{ float: 'left' }}>
-                <img src={logo} width={170} alt='A cat with a house' />
-            </Link>
+            {homeLink}
             <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['home']} style={{ justifyContent: 'flex-end' }}>
                 {!isAdminPage && <Menu.Item key={'wishlist'}>
                     My Wishlist

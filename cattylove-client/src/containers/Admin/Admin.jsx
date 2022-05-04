@@ -2,7 +2,7 @@ import { WarningFilled } from '@ant-design/icons';
 import { Button, Modal, PageHeader } from 'antd';
 import axios from '../../utility/axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AdminCatList from '../../components/AdminCatList/AdminCatList';
 import { toast } from 'react-toastify';
 import getAdminHeader from '../../utility/getAdminHeader';
@@ -12,6 +12,8 @@ const Admin = () => {
     const [cats, setCats] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+
+    const navigate = useNavigate()
 
     const { confirm } = Modal
 
@@ -42,6 +44,7 @@ const Admin = () => {
         }
         else {
             toast.warning('Your login session has expired. Please login again!', { position: 'bottom-center', theme: 'dark' });
+            navigate('/admin/login', { replace: true })
         }
     }
 
