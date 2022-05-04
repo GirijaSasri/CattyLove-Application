@@ -13,6 +13,7 @@ import AdminLogin from './containers/AdminLogin/AdminLogin';
 import CONSTANTS from './utility/Constants';
 
 import './App.css'
+import CatDetail from './containers/CatDetail/CatDetail';
 
 function App() {
 
@@ -40,7 +41,7 @@ function App() {
               <Route path='/admin/login' element={<AdminLogin />} />
               <Route path='/comment' element={<Comment />} />
               <Route path='/login' element={<Login />} />
-              <Route path='/catdetail' element={<Catdeatil />} />
+              <Route path='/cats/:id' element={<CatDetail />} />
           </Routes>
         </PageLayout>
       </BrowserRouter>
