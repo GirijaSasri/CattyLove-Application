@@ -2,6 +2,8 @@ const express = require('express')
 const Cat = require('../models/cat')
 const User = require('../models/user')
 const Comment = require('../models/comment')
+const adminAuthenticator = require('../middleware/adminAuthenticator')
+
 const router = express.Router()
 
 router.get('/', async (req, res) => {
@@ -29,7 +31,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', adminAuthenticator, async (req, res) => {
     const { 
         name, 
         age, 
@@ -75,7 +77,7 @@ router.post('/', async (req, res) => {
     } 
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', adminAuthenticator, async (req, res) => {
     try {
         let cat = await Cat.findById(req.params.id)
         if(!cat)
@@ -124,7 +126,7 @@ router.put('/:id', async (req, res) => {
     } 
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', adminAuthenticator, async (req, res) => {
     try {
         let cat = await Cat.findOneAndDelete({ _id: req.params.id })
         if(!cat)
