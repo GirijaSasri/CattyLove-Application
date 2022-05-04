@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import {IKImage } from 'imagekitio-react'
 import {LikeFilled, LikeOutlined, HeartOutlined, HeartFilled, ShareAltOutlined, } from '@ant-design/icons'
 import CONSTANTS from '../../utility/Constants'
+import { withAuth0 } from '@auth0/auth0-react'
 
 class Cat extends Component {
     
@@ -38,15 +39,21 @@ class Cat extends Component {
     }
 
     likeCat = () => {
-        if (this.props.likes.includes(this.state.userId)){
-            let tempArray = this.props.likes
-            tempArray.splice(this.props.likes.indexOf(this.state.userId),1)
-            this.setState({likes: tempArray})
+        const { user, isAuthenticated, isLoading, loginWithPopup } = this.props.auth0;
+        if(!isLoading && !isAuthenticated) {
+            loginWithPopup()
         }
-        else{
-            let tempArray = this.props.likes
-            tempArray.push(this.state.userId)
-            this.setState({likes: tempArray})
+        else if(isAuthenticated) {
+            if (this.props.likes.includes(this.state.userId)){
+                let tempArray = this.props.likes
+                tempArray.splice(this.props.likes.indexOf(this.state.userId),1)
+                this.setState({likes: tempArray})
+            }
+            else{
+                let tempArray = this.props.likes
+                tempArray.push(this.state.userId)
+                this.setState({likes: tempArray})
+            }
         }
     }
 
@@ -64,7 +71,6 @@ class Cat extends Component {
     }
 
     render() {
-
         return (
             <React.Fragment>
                 <div style={{width:'45%', margin:10}}>
@@ -133,4 +139,4 @@ class Cat extends Component {
     }
 }
 
-export default Cat
+export default withAuth0(Cat) 
