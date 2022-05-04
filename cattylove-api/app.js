@@ -6,6 +6,9 @@ const cats = require('./routes/cats')
 const users = require('./routes/users')
 const imagekit = require('./routes/imagekit')
 const comment = require('./routes/comment')
+const admins = require('./routes/admins')
+const auth = require('./routes/auth')
+const errorHandler = require("./middleware/errorHandler")
 
 const app = express()
 
@@ -15,6 +18,9 @@ app.use('/api/cats', cats)
 app.use('/api/users', users)
 app.use('/api/imagekit', imagekit)
 app.use('/api/comment', comment)
+app.use('/api/admins', admins)
+app.use('/api/auth', auth)
+app.use(errorHandler)
 
 app.listen(5000, () => {
     console.log('Connected. Listening on port 5000')

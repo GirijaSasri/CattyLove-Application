@@ -13,7 +13,7 @@ class AllCats extends Component {
             <Row>
                 {this.state.allCats.map((cat) => (
                         <Cat 
-                            key={cat.catId}
+                            key={cat.key}
                             catId={cat.catId} 
                             likes={cat.likes }
                             gender={cat.gender}

@@ -4,6 +4,8 @@ import {IKImage } from 'imagekitio-react'
 import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton, EmailIcon, EmailShareButton } from 'react-share'
 import {LikeFilled, LikeOutlined, HeartOutlined, HeartFilled, } from '@ant-design/icons'
 import CONSTANTS from '../../utility/Constants'
+import { withAuth0 } from '@auth0/auth0-react'
+import { Link } from 'react-router-dom'
 
 class Cat extends Component {
     
@@ -39,15 +41,21 @@ class Cat extends Component {
     }
 
     likeCat = () => {
-        if (this.props.likes.includes(this.state.userId)){
-            let tempArray = this.props.likes
-            tempArray.splice(this.props.likes.indexOf(this.state.userId),1)
-            this.setState({likes: tempArray})
+        const { user, isAuthenticated, isLoading, loginWithPopup } = this.props.auth0;
+        if(!isLoading && !isAuthenticated) {
+            loginWithPopup()
         }
-        else{
-            let tempArray = this.props.likes
-            tempArray.push(this.state.userId)
-            this.setState({likes: tempArray})
+        else if(isAuthenticated) {
+            if (this.props.likes.includes(this.state.userId)){
+                let tempArray = this.props.likes
+                tempArray.splice(this.props.likes.indexOf(this.state.userId),1)
+                this.setState({likes: tempArray})
+            }
+            else{
+                let tempArray = this.props.likes
+                tempArray.push(this.state.userId)
+                this.setState({likes: tempArray})
+            }
         }
     }
 
@@ -65,31 +73,32 @@ class Cat extends Component {
     }
 
     render() {
-
         return (
             <React.Fragment>
                 <div style={{width:'45%', margin:10}}>
                     <Badge.Ribbon text={this.props.gender} color={this.getGender()} style={{fontSize:20, height:'30px', paddingTop:3, paddingBottom:3, paddingRight:20}}>
                         <Card style={{height:'fit-content', borderRadius:10}} hoverable>
-                            <Row align='top' gutter={[16,8]}>
-                                <Col span={8}>
-                                    <Avatar src={
-                                        <IKImage
-                                            urlEndpoint={CONSTANTS.imagekitEndpoint} 
-                                            path={this.props.imageLink}
-                                            transformation={[{ height:100, width:100 }]}
-                                            lqip={{ active:true, quality: 10 }}
-                                            height="100"
-                                            width="100"
+                            <Link to={`/cats/${this.props.catId}`}>
+                                <Row align='top' gutter={[16,8]}>
+                                    <Col span={8}>
+                                        <Avatar src={
+                                            <IKImage
+                                                urlEndpoint={CONSTANTS.imagekitEndpoint} 
+                                                path={this.props.imageLink}
+                                                transformation={[{ height:100, width:100 }]}
+                                                lqip={{ active:true, quality: 10 }}
+                                                height="100"
+                                                width="100"
+                                            />
+                                        }
+                                        size={100}
                                         />
-                                    }
-                                    size={100}
-                                    />
-                                </Col>
-                                <Col span={8}>
-                                    <br/><p style={{fontSize:20}}><b>{this.props.catName}</b></p>
-                                </Col>
-                            </Row>
+                                    </Col>
+                                    <Col span={8}>
+                                        <br/><p style={{fontSize:20}}><b>{this.props.catName}</b></p>
+                                    </Col>
+                                </Row>
+                            </Link>
                             <Row>
                                 <Col>
                                     <p>{this.props.description}</p>
@@ -166,4 +175,4 @@ class Cat extends Component {
     }
 }
 
-export default Cat
+export default withAuth0(Cat) 

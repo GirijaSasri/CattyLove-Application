@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ThemeForm from '../../components/ThemeForm/ThemeForm';
 import axios from '../../utility/axios'
+import getAdminHeader from '../../utility/getAdminHeader';
 
 const EditCat = () => {
     const navigate = useNavigate()
@@ -19,7 +20,7 @@ const EditCat = () => {
                     setCat(res.data)
                 })
                 .catch(err => {
-                    toast.error(err.response?.data, { position: 'bottom-center', theme: 'dark' });
+                    toast.error(`${err.response?.status}: ${err.response?.data}`, { position: 'bottom-center', theme: 'dark' });
                 })
         }
     }, [id, cat])
@@ -29,20 +30,27 @@ const EditCat = () => {
     }
 
     const submitHandler = values => {
-        setSuccess(false)
-        setLoading(true)
-        axios.put(`cats/${id}`, values)
-            .then(res => {
-                setSuccess(true)
-                toast.success('Cat details updated successfully!', { position: 'bottom-center', theme: 'dark' });
-                setCat(res.data)
-            })
-            .catch(err => {
-                toast.error(err.response?.data, { position: 'bottom-center', theme: 'dark' });
-            })
-            .finally(() => {
-                setLoading(false)
-            })
+        const headers = getAdminHeader()
+        if(headers) {
+            setSuccess(false)
+            setLoading(true)
+            axios.put(`cats/${id}`, values, { headers })
+                .then(res => {
+                    setSuccess(true)
+                    toast.success('Cat details updated successfully!', { position: 'bottom-center', theme: 'dark' });
+                    setCat(res.data)
+                })
+                .catch(err => {
+                    toast.error(`${err.response?.status}: ${err.response?.data}`, { position: 'bottom-center', theme: 'dark' });
+                })
+                .finally(() => {
+                    setLoading(false)
+                })
+        }
+        else {
+            toast.warning('Your login session has expired. Please login again!', { position: 'bottom-center', theme: 'dark' });
+            navigate('/admin/login', { replace: true })
+        }
     }
 
     const submitFailHandler = error => {
@@ -137,7 +145,8 @@ const EditCat = () => {
         <div>
             <PageHeader
                 onBack={onBackHandler}
-                title={title} />
+                title={title}
+                subTitle={cat && `#${cat._id}`} />
             {cat && <ThemeForm 
                 fields={fields} 
                 onFinish={submitHandler} 

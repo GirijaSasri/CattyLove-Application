@@ -1,10 +1,20 @@
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input, InputNumber, Radio } from 'antd';
 import React, { useEffect, useRef } from 'react';
 import FeatureList from '../FeatureList/FeatureList';
 import ImageUpload from '../ImageUpload/ImageUpload';
 import MapWrapper from '../MapWrapper/MapWrapper';
 
-const ThemeForm = ({ onFinish, onFinishFailed, fields, success, loading }) => {
+const ThemeForm = ({ 
+    onFinish, 
+    onFinishFailed, 
+    fields, 
+    success, 
+    loading, 
+    submitText = 'Save', 
+    enableReset = true, 
+    maxWidth = 600,
+    formType }) => {
 
     const formRef = useRef()
     const [form] = Form.useForm()
@@ -57,11 +67,17 @@ const ThemeForm = ({ onFinish, onFinishFailed, fields, success, loading }) => {
                 </>
             )
         }
+        else if(field.type === 'password') {
+            inputType = <Input.Password prefix={<LockOutlined />} placeholder={field.label} />
+        }
+        else if(field.type === 'username') {
+            inputType = <Input prefix={<UserOutlined />} placeholder={field.label} />
+        }
 
         return (
             <Form.Item
                 key={field.name}
-                label={field.label}
+                label={formType !== 'login' && field.label}
                 name={field.type !== 'map' && field.name}
                 rules={field.rules}>
                 {inputType}
@@ -86,15 +102,15 @@ const ThemeForm = ({ onFinish, onFinishFailed, fields, success, loading }) => {
             onFinishFailed={onFinishFailed}
             initialValues={initValues}
             autoComplete="off"
-            style={{ maxWidth: 600, margin: 'auto' }}>
+            style={{ maxWidth, margin: 'auto' }}>
             {inputs}
             <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
                 <Button type="primary" htmlType="submit" disabled={loading}>
-                    Save
+                    {submitText}
                 </Button>
-                <Button htmlType="button" onClick={resetHandler} style= {{ marginLeft: '20px' }}>
+                {enableReset && <Button htmlType="button" onClick={resetHandler} style= {{ marginLeft: '20px' }}>
                     Reset
-                </Button>
+                </Button>}
             </Form.Item>
         </Form>
     );

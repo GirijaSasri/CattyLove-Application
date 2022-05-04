@@ -1,8 +1,9 @@
 import React from 'react'
 import "antd/dist/antd.css";
-import { Form, Button, Input, Space, Row } from 'antd';
+import { Form, Button, Input, Row } from 'antd';
 import { Image } from 'antd';
-import { PoweroffOutlined } from '@ant-design/icons';
+import AllComments from '../comment/AllCcomments';
+import { Link } from 'react-router-dom';
   
 export default function App() {
   
@@ -78,7 +79,20 @@ export default function App() {
                Add To Wishlist
               </Button>
              </Form.Item>
+             <Form.Item key={'comment'}>
+                <Button >
+                    <Link to={'/comment'}>
+                       Post A Comment
+                    </Link>
+                </Button>                   
+            </Form.Item>
 
+             <Form.Item>
+                <AllComments>
+
+                </AllComments>
+             </Form.Item>
+             
 
             </Form>
         </div>

@@ -1,9 +1,14 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-    name: {
-        type: String
+    sub: {          // user id given by Auth0
+        type: String,
+        unique: true,
+        required: true
     },
+    name: String,
+    email: String,
+    picture: String,
     wishlist: {
         type: [mongoose.Types.ObjectId]
     }
