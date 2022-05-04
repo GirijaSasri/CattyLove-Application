@@ -13,11 +13,13 @@ class CommentItem extends Component {
             <React.Fragment>
                  <div style={{width:'100%', margin:10}}>
                  
-                    <Card>
-                        <h1>
-                            {this.getAnon()}
-                        </h1>
-                     {this.props.comment }
+                    <Card style={{width:'100%',height:'fit-content', borderRadius:10}} hoverable>   
+                        <h2>
+                            User : {this.getAnon()}
+                        </h2>
+                        <h3>
+                            {this.props.comment }
+                        </h3>
                     </Card>
                     
                  </div>
