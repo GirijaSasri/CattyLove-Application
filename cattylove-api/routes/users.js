@@ -6,6 +6,19 @@ router.get('/', async (req, res) => {
 
 })
 
+//get user _id
+router.get('/:sub', async (req, res) => {
+    try {
+        let user_id = await User.findOne({sub:req.params.sub}).select('_id')
+        if(!user_id)
+            return res.status(404).send('A cat for the given id is not available')
+        return res.status(200).send(user_id)
+    }
+    catch(ex) {
+        return res.status(500).send('Error: ' + ex.message)
+    }
+})
+
 router.post('/', async (req, res) => {
     const {
         sub,

@@ -8,12 +8,12 @@ import EditCat from './containers/EditCat/EditCat';
 import Comment from './containers/comment/comment';
 import { Auth0Provider } from '@auth0/auth0-react';
 import Login from './containers/Login/Login';
-import Catdeatil from './containers/CatDetail/catdeatil';
 import AdminLogin from './containers/AdminLogin/AdminLogin';
 import CONSTANTS from './utility/Constants';
 
 import './App.css'
 import CatDetail from './containers/CatDetail/CatDetail';
+import Wishlist from './containers/wishlist/wishlist2';
 
 function App() {
 
@@ -42,6 +42,7 @@ function App() {
               <Route path='/comment' element={<Comment />} />
               <Route path='/login' element={<Login />} />
               <Route path='/cats/:id' element={<CatDetail />} />
+              <Route path='/wishlist' element={<Wishlist />} />
           </Routes>
         </PageLayout>
       </BrowserRouter>
