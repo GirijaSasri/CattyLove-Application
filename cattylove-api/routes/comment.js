@@ -12,37 +12,31 @@ router.get('/comment', async (req, res) => {
 
 router.post("/", async (req, res) => {
 
-
-    //Validate the data before we create an order
-    // const { error } = orderValidation(req.body);
-    // if (error) {
-    //     return res.status(400).send({ message: error.details[0].message });
-    // }
-
     try {
         console.log("===============");
         console.log("req :",req.body);
 
         const com = req.body.comment;
         const anon = req.body.anonymous;        
-        const catid = req.body.catId;
-        let date = new Date();
-        let time =date.toLocaleString()
+        const catid = req.body.catId;    
+
         let user = await User.findOne({sub: req.body.userSub})
-        let comment = new Comment({
+       
+            let comment = new Comment({
             
-            userId : user._id,
-            catId: catid,
-            comment: com,
-            anonymous: anon,
-            timestamps: time
-
-        });
-
-        comment = await comment.save();
-
-        return res.status(200).send({ message: "Comment successful." });
-
+                userId : user.id,
+                catId: catid,
+                comment: com,
+                anonymous: anon
+    
+            });
+    
+            comment = await comment.save();
+    
+            return res.status(200).send({ message: "Comment successful." });
+    
+        
+       
 
     }
     catch (e) {

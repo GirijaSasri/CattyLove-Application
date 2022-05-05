@@ -20,6 +20,9 @@ class CommentItem extends Component {
                         <h3>
                             {this.props.comment }
                         </h3>
+                        <h3>
+                        {this.props.createdAt  }
+                        </h3>
                     </Card>
                     
                  </div>
@@ -30,6 +33,7 @@ class CommentItem extends Component {
     
     componentDidMount(){
         console.log(this.props.comment)
+        console.log(this.props.timestamps)
     }
 }
 

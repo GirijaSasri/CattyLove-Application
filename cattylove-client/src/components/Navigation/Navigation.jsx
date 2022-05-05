@@ -60,12 +60,7 @@ const Navigation = () => {
                     My Wishlist
                 </Menu.Item>}
                 {authMenu}
-                {adminAuthMenu}
-                <Menu.Item key={'comment'}>
-                    <Link to={'/comment'}>
-                    Comment
-                    </Link>
-                </Menu.Item>
+                {adminAuthMenu}               
             </Menu>
         </Header>
     );

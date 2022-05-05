@@ -22,6 +22,7 @@ class AllComments extends Component {
                             catId={comment.catId} 
                             comment={comment.commentd }
                             annonymous={comment.annonymous}
+                            createdAt ={comment.createdAt }
                             
                         />
                     ))}
@@ -32,7 +33,7 @@ class AllComments extends Component {
     async componentDidMount(){
       
         console.log("finished mounting. getting comments")
-        let { data } = await axios.get(`/comment/${this.props.id}`)
+        let { data } = await axios.get(`http://localhost:5000/api/comment/${this.props.id}`)
         console.log(data)
         let comments = data.map(comment => {
             return {
@@ -40,7 +41,8 @@ class AllComments extends Component {
                 userid:comment.userId.name,
                 catId:comment.catId,
                 commentd:comment.comment,
-                annonymous:comment.anonymous
+                annonymous:comment.anonymous,
+                createdAt : comment.createdAt 
             }
         })
         this.setState({allComments: comments})

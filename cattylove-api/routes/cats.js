@@ -54,6 +54,9 @@ router.post('/', adminAuthenticator, async (req, res) => {
         return res.status(400).send('Latitude value is invalid')
     
     try {
+        console.log("===============");
+        console.log("req :",req.body);
+        
         let cat = new Cat({
             name,
             age,
@@ -76,6 +79,8 @@ router.post('/', adminAuthenticator, async (req, res) => {
 
 router.put('/:id', adminAuthenticator, async (req, res) => {
     try {
+        console.log("===============");
+        console.log("req :",req.body);
         let cat = await Cat.findById(req.params.id)
         if(!cat)
             return res.status(404).send('A cat for the given id is not available')
@@ -125,6 +130,8 @@ router.put('/:id', adminAuthenticator, async (req, res) => {
 
 router.delete('/:id', adminAuthenticator, async (req, res) => {
     try {
+        console.log("===============");
+        console.log("req :",req.body);
         let cat = await Cat.findOneAndDelete({ _id: req.params.id })
         if(!cat)
             return res.status(404).send('A cat for the given id is not available')
