@@ -15,7 +15,7 @@ class Cat extends Component {
         wishlistCatIds: []
     }
 
-    getGender(){
+    getGender = () => {
         var color = ''
 
         switch (this.props.gender) {
@@ -33,9 +33,9 @@ class Cat extends Component {
         return color
     }
 
-    getLiked(){
+    getLiked = () => {
         const { user, isAuthenticated, isLoading, loginWithPopup } = this.props.auth0;
-        if(!isLoading && !isAuthenticated){
+        if(!isAuthenticated){
             return <LikeOutlined style={{color:'#ffffff'}} />
         }
         else if(isAuthenticated){
@@ -43,7 +43,7 @@ class Cat extends Component {
         }
     }
 
-    getWishListed(){
+    getWishListed = () => {
         return this.state.wishlistCatIds.includes(this.props.catId) ? <HeartFilled style={{color:'#c90025', fontSize:25}} /> : <HeartOutlined style={{color:'#c90025', fontSize:25}} />
     }
 
@@ -103,15 +103,15 @@ class Cat extends Component {
                                         />
                                     </Col>
                                     <Col span={8}>
-                                        <br/><p style={{fontSize:20}}><b>{this.props.catName}</b></p>
+                                        <br/><p style={{fontSize:20, color:'black'}}><b>{this.props.catName}</b></p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <p style={{color:'black'}}>{this.props.description}</p>
                                     </Col>
                                 </Row>
                             </Link>
-                            <Row>
-                                <Col>
-                                    <p>{this.props.description}</p>
-                                </Col>
-                            </Row>
                             <Row align='middle'>
                                 <Col span={17}>
                                     <Row>
