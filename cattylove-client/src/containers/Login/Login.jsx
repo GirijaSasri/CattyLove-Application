@@ -16,9 +16,8 @@ const Login = () => {
                     navigate('/')
                 })
                 .catch(err => {
-                    console.log(err)
                     toast.error(`${err.response?.status}: ${err.response?.data}`, { position: 'bottom-center', theme: 'dark' });
-                    // logout({ returnTo: window.location.origin })
+                    logout({ returnTo: window.location.origin })
                 })
         }
     }, [user, isAuthenticated, navigate, logout])
