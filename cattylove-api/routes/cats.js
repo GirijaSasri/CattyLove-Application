@@ -49,6 +49,8 @@ router.post('/', adminAuthenticator, async (req, res) => {
         return res.status(400).send('Name of cat is invalid')
     if(isNaN(age)) 
         return res.status(400).send('Age of cat is invalid')
+    if(description.length < 10)
+        return res.status(400).send('Description should have atleast 10 characters')
     if(isNaN(contact)) 
         return res.status(400).send('Owner contact number is invalid')
     if(longitude && isNaN(longitude))
