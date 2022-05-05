@@ -9,12 +9,14 @@ const comment = require('./routes/comment')
 const admins = require('./routes/admins')
 const auth = require('./routes/auth')
 const like = require('./routes/likes')
+const log = require("./middleware/logHandler");
 const errorHandler = require("./middleware/errorHandler")
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(log)
 app.use('/api/cats', cats)
 app.use('/api/users', users)
 app.use('/api/imagekit', imagekit)
