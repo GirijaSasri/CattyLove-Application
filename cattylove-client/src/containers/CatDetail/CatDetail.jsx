@@ -1,4 +1,4 @@
-import { Card, Row } from 'antd';
+import { Form, Button,Card, Row } from 'antd';
 import { IKImage } from 'imagekitio-react';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -7,6 +7,9 @@ import CatFeature from '../../components/CatFeature/CatFeature';
 import MapWrapper from '../../components/MapWrapper/MapWrapper';
 import CONSTANTS from '../../utility/Constants';
 import axios from '../../utility/axios'
+import AllComments from '../comment/AllCcomments';
+import { Link } from 'react-router-dom';
+import Comment from '../comment/comment';
 
 const CatDetail = () => {
     const { id } = useParams()
@@ -68,6 +71,10 @@ const CatDetail = () => {
             <Card style={{ margin: 32, borderRadius: 10 }}>
                 <h2>Location</h2>
                 <MapWrapper initialValue={cat && { lat: cat?.latitude, lng: cat?.longitude }} />
+            </Card>
+            <Card style={{ margin: 32, borderRadius: 10 }}>
+            <Comment catId={id} />
+                <AllComments id= {id} />
             </Card>
         </div>
     );
