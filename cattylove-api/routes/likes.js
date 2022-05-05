@@ -9,7 +9,7 @@ router.get('/:id', async (req, res) => {
     console.log("all likes request received for catID " + req.params.id + " on " + new Date().toISOString())
     try{
         let likes = await Cat.findById(req.params.id).select('likes')
-        res.send(likes) 
+        res.status(200).send(likes) 
     }
     catch(ex){
         res.status(500).send("Error: " + ex.message)

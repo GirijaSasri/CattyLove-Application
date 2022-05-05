@@ -1,0 +1,4 @@
+[5-4-2022 22:23:18] Status Code: 200, Method: DELETE, URL: /api/like/626edf8fd82ed0164309b739/auth0%7C6272bb3c4d977100697e73eb
+[5-4-2022 22:23:34] Status Code: 200, Method: PUT, URL: /api/like/626edf8fd82ed0164309b739/auth0%7C6272bb3c4d977100697e73eb
+[5-4-2022 22:56:17] Status Code: 200, Method: GET, URL: /api/cats
+[5-4-2022 22:56:17] Status Code: 200, Method: GET, URL: /api/cats
