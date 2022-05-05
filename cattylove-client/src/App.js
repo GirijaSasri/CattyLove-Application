@@ -13,6 +13,7 @@ import CONSTANTS from './utility/Constants';
 
 import './App.css'
 import CatDetail from './containers/CatDetail/CatDetail';
+import Wishlist from './containers/wishlist/wishlist2';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
               <Route path='/comment' element={<Comment />} />
               <Route path='/login' element={<Login />} />
               <Route path='/cats/:id' element={<CatDetail />} />
+              <Route path='/wishlist' element={<Wishlist />} />
           </Routes>
         </PageLayout>
       </BrowserRouter>
