@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from '../../utility/axios'
 import Cat from '../../components/Cat/Cat';
+import { withAuth0 } from '@auth0/auth0-react'
 import { Row } from 'antd'
 
 class AllCats extends Component {
     state = {
-
+        user_id: "",
         allCats: []
     };
     render() {
@@ -20,6 +21,7 @@ class AllCats extends Component {
                             catName={cat.catName}
                             imageLink={cat.imageLink}
                             description={cat.description}
+                            user_id= {this.state.user_id}
                         />
                     ))}
             </Row>
@@ -28,6 +30,7 @@ class AllCats extends Component {
 
     async componentDidMount(){
         console.log("finished mounting. getting cats")
+        
         let { data } = await axios.get(`/cats`)
         console.log(data)
         let cats = data.map(cat => {
@@ -43,7 +46,10 @@ class AllCats extends Component {
         })
         this.setState({allCats: cats})
         console.log("got data")
+        console.log("user: " + this.state.user_id)
     }
+
+    
 };
 
-export default AllCats;
+export default withAuth0(AllCats);
