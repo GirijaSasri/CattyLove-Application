@@ -8,6 +8,7 @@ const imagekit = require('./routes/imagekit')
 const comment = require('./routes/comment')
 const admins = require('./routes/admins')
 const auth = require('./routes/auth')
+const like = require('./routes/likes')
 const errorHandler = require("./middleware/errorHandler")
 
 const app = express()
@@ -20,6 +21,7 @@ app.use('/api/imagekit', imagekit)
 app.use('/api/comment', comment)
 app.use('/api/admins', admins)
 app.use('/api/auth', auth)
+app.use('/api/like', like)
 app.use(errorHandler)
 
 app.listen(5000, () => {

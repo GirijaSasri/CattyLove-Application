@@ -1,19 +1,21 @@
 import { Badge, Card, Avatar, Button, Row, Col } from 'antd'
 import React, { Component } from 'react'
 import {IKImage } from 'imagekitio-react'
-import {LikeFilled, LikeOutlined, HeartOutlined, HeartFilled, ShareAltOutlined, } from '@ant-design/icons'
+import axios from '../../utility/axios'
+import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton, EmailIcon, EmailShareButton } from 'react-share'
+import {LikeFilled, LikeOutlined, HeartOutlined, HeartFilled, } from '@ant-design/icons'
 import CONSTANTS from '../../utility/Constants'
-import { withAuth0 } from '@auth0/auth0-react'
+import { User, withAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
 
 class Cat extends Component {
     
     state = {
-        userId:10,
-        wishlistCatIds: [1,2,5]
+        likes:this.props.likes,
+        wishlistCatIds: []
     }
 
-    getGender(){
+    getGender = () => {
         var color = ''
 
         switch (this.props.gender) {
@@ -31,29 +33,36 @@ class Cat extends Component {
         return color
     }
 
-    getLiked(){
-        return this.props.likes.includes(this.state.userId) ? <LikeFilled style={{color:'#ffffff'}} /> : <LikeOutlined style={{color:'#ffffff'}} />
+    getLiked = () => {
+        const { user, isAuthenticated, isLoading, loginWithPopup } = this.props.auth0;
+        if(!isAuthenticated){
+            return <LikeOutlined style={{color:'#ffffff'}} />
+        }
+        else if(isAuthenticated){
+            return this.state.likes.includes(user.sub) ? <LikeFilled style={{color:'#ffffff'}} /> : <LikeOutlined style={{color:'#ffffff'}} />
+        }
     }
 
-    getWishListed(){
+    getWishListed = () => {
         return this.state.wishlistCatIds.includes(this.props.catId) ? <HeartFilled style={{color:'#c90025', fontSize:25}} /> : <HeartOutlined style={{color:'#c90025', fontSize:25}} />
     }
 
-    likeCat = () => {
+    likeCat = async() => {
         const { user, isAuthenticated, isLoading, loginWithPopup } = this.props.auth0;
         if(!isLoading && !isAuthenticated) {
             loginWithPopup()
         }
         else if(isAuthenticated) {
-            if (this.props.likes.includes(this.state.userId)){
-                let tempArray = this.props.likes
-                tempArray.splice(this.props.likes.indexOf(this.state.userId),1)
-                this.setState({likes: tempArray})
+            console.log(user.sub)
+            if (this.state.likes.includes(user.sub)){
+                let { data } = await axios.delete(`/like/${this.props.catId}/${user.sub}`)
+                console.log(data.likes)
+                this.setState({likes: data.likes})
             }
             else{
-                let tempArray = this.props.likes
-                tempArray.push(this.state.userId)
-                this.setState({likes: tempArray})
+                let { data } = await axios.put(`/like/${this.props.catId}/${user.sub}`)
+                console.log(data.likes)
+                this.setState({likes: data.likes})
             }
         }
     }
@@ -94,42 +103,70 @@ class Cat extends Component {
                                         />
                                     </Col>
                                     <Col span={8}>
-                                        <br/><p style={{fontSize:20}}><b>{this.props.catName}</b></p>
+                                        <br/><p style={{fontSize:20, color:'black'}}><b>{this.props.catName}</b></p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <p style={{color:'black'}}>{this.props.description}</p>
                                     </Col>
                                 </Row>
                             </Link>
-                            <Row>
-                                <Col>
-                                    <p>{this.props.description}</p>
-                                </Col>
-                            </Row>
                             <Row align='middle'>
-                                <Col span={19}>
-                                    <Button
-                                        type='text' 
-                                        icon={this.getLiked()}
-                                        style={{fontSize:16, backgroundColor:this.getGender(), color:'#ffffff', borderRadius:10, paddingBottom:30}}
-                                        onClick={this.likeCat}
-                                        >
-                                        &nbsp;{this.props.likes.length}
-                                    </Button>
-                                </Col>
-                                <Col span={5} style={{alignContent:'center'}}>
-                                    <Row align='middle' style={{height:'fit-content'}}>
+                                <Col span={17}>
+                                    <Row>
                                         <Col>
-                                            <Button 
+                                            <Button
                                                 type='text' 
-                                                icon={this.getWishListed()}
-                                                onClick={this.addWishlist}
+                                                icon={this.getLiked()}
+                                                style={{fontSize:16, backgroundColor:this.getGender(), color:'#ffffff', borderRadius:10, paddingBottom:30}}
+                                                onClick={this.likeCat}
                                                 >
+                                                &nbsp;{this.state.likes.length}
                                             </Button>
                                         </Col>
                                         <Col>
                                             <Button 
                                                 type='text' 
-                                                icon={<ShareAltOutlined style={{color:'#858585', fontSize:25}} />}
+                                                icon={this.getWishListed()}
+                                                onClick={this.addWishlist}
+                                                style={{marginLeft:10}}
                                                 >
                                             </Button>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col span={7}>
+                                    <Row align='bottom' style={{height:'fit-content'}}>
+                                        <Col>
+                                            <FacebookShareButton
+                                                url={"http://"+window.location.host + "/cats/" + this.props.catId}
+                                                quote={this.props.catName}
+                                                description={this.props.description}
+                                                className="Demo__some-network__share-button"
+                                                style={{marginLeft:5}}
+                                            >
+                                                <FacebookIcon size={27} round />
+                                            </FacebookShareButton>
+                                        </Col>
+                                        <Col>
+                                            <TwitterShareButton
+                                                url={"http://"+window.location.host + "/cats/" + this.props.catId}
+                                                title={this.props.description}
+                                                style={{marginLeft:5}}
+                                            >
+                                                <TwitterIcon size={27} round />
+                                            </TwitterShareButton>
+                                        </Col>
+                                        <Col>
+                                            <EmailShareButton
+                                                subject={this.props.catName}
+                                                body={this.props.description}
+                                                url={"http://"+window.location.host + "/cats/" + this.props.catId}
+                                                style={{marginLeft:5}}
+                                            >
+                                                <EmailIcon size={27} round />
+                                            </EmailShareButton>
                                         </Col>
                                     </Row>
                                 </Col>

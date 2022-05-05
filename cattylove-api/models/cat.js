@@ -38,7 +38,7 @@ const catSchema = new mongoose.Schema({
     features: {
         type: [Feature]
     },
-    likes: [mongoose.Types.ObjectId]
+    likes: [String]
 }, {
     timestamps: true
 })
