@@ -8,7 +8,6 @@ import EditCat from './containers/EditCat/EditCat';
 import Comment from './containers/comment/comment';
 import { Auth0Provider } from '@auth0/auth0-react';
 import Login from './containers/Login/Login';
-import Catdeatil from './containers/CatDetail/catdeatil';
 import AdminLogin from './containers/AdminLogin/AdminLogin';
 import CONSTANTS from './utility/Constants';
 

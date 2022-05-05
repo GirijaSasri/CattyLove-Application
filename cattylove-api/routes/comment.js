@@ -24,16 +24,18 @@ router.post("/", async (req, res) => {
         console.log("req :",req.body);
 
         const com = req.body.comment;
-        const anon = req.body.anonymous;
-        const uid = req.body.userId;
+        const anon = req.body.anonymous;        
         const catid = req.body.catId;
-
+        let date = new Date();
+        let time =date.toLocaleString()
+        let user = await User.findOne({sub: req.body.userSub})
         let comment = new Comment({
             
-            userId : uid,
+            userId : user._id,
             catId: catid,
             comment: com,
-            anonymous: anon
+            anonymous: anon,
+            timestamps: time
 
         });
 
@@ -51,6 +53,19 @@ router.post("/", async (req, res) => {
 
 })
 
+router.get('/:id', async (req, res) => {
+    try {
+        let comment = await Comment.find({catId : req.params.id}).populate('userId','name picture')
+        if(!comment)
+            return res.status(404).send('No comments available for this cat.')
+
+        return res.status(200).send(comment)
+    }
+    catch(ex) {
+        return res.status(500).send('Error: ' + ex.message)
+    }
+})
+  
 router.get('/', async (req, res) => {
     try {
         let comment = await Comment.find()
@@ -61,8 +76,6 @@ router.get('/', async (req, res) => {
     catch(ex) {
         return res.status(500).send('Error: ' + ex.message)
     }
-})
-  
-  
+})  
 
 module.exports = router
