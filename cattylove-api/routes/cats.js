@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     console.log("request received " + new Date().toISOString())
     try{
         let cats = await Cat.find()
-        res.send(cats) 
+        res.status(200).send(cats) 
     }
     catch(ex){
         res.status(500).send("Error: " + ex.message)
